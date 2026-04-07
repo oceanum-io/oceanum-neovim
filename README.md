@@ -25,7 +25,7 @@ Oceanum Neovim is a plugin for interacting with [Oceanum Datamesh](https://ui.da
   dependencies = { "nvim-lua/plenary.nvim" },
   config = function()
     require("oceanum").setup({
-      -- token_env_var = "OCEANUM_API_KEY", -- optional, this is the default
+      -- token_env_var = "DATAMESH_TOKEN", -- optional, this is the default
     })
   end,
 }
@@ -37,7 +37,7 @@ The plugin is configured by passing a table to the `setup` function.
 
 | Option | Type | Default | Description |
 | --- | --- | --- | --- |
-| `token_env_var` | `string` | `"OCEANUM_API_KEY"` | Environment variable name for the Oceanum API token. |
+| `token_env_var` | `string` | `"DATAMESH_TOKEN"` | Environment variable name for the Oceanum API token. |
 | `ai_backend_url` | `string` | `"https://ai.oceanum.io"` | URL for the Oceanum AI service. |
 | `datamesh_ui_url` | `string` | `"https://ui.datamesh.oceanum.io"` | URL for the Oceanum Datamesh UI. |
 
@@ -70,10 +70,10 @@ Run `:OceanumChat` to open a floating chat window. You can ask questions about d
 
 ### Missing Token
 
-If you see "MISSING - set OCEANUM_API_KEY environment variable" in the health check, ensure you have exported your API key:
+If you see "MISSING - set DATAMESH_TOKEN environment variable" in the health check, ensure you have exported your API key:
 
 ```bash
-export OCEANUM_API_KEY=your_token_here
+export DATAMESH_TOKEN=your_token_here
 ```
 
 ### Empty Workspace

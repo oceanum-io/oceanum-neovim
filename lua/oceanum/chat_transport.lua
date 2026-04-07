@@ -135,7 +135,7 @@ function M.send(prompt, opts)
   
   -- Check for token before making request
   if not token.has_token() then
-    local err = { success = false, error = "Oceanum token not configured. Set OCEANUM_API_KEY." }
+    local err = { success = false, error = "Oceanum token not configured. Set DATAMESH_TOKEN." }
     if opts.callback then
       opts.callback(err)
       return nil

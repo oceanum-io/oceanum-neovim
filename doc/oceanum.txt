@@ -51,7 +51,7 @@ Options:
 
 *token_env_var*         (string)
                         Environment variable name for the Oceanum API token.
-                        Default: "OCEANUM_API_KEY"
+                        Default: "DATAMESH_TOKEN"
 
 *ai_backend_url*        (string)
                         URL for the Oceanum AI service.
@@ -118,9 +118,9 @@ Run `:OceanumHealth` to verify your installation. It checks for:
 7. TROUBLESHOOTING                                   *oceanum-troubleshooting*
 
 Missing Token:
-If you see "MISSING - set OCEANUM_API_KEY environment variable" in the health
+If you see "MISSING - set DATAMESH_TOKEN environment variable" in the health
 check, ensure you have exported your API key:
-`export OCEANUM_API_KEY=your_token_here`
+`export DATAMESH_TOKEN=your_token_here`
 
 Empty Workspace:
 The workspace browser requires a valid token and access to datasources in your

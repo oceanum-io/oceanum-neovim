@@ -16,11 +16,11 @@ describe("Oceanum health module", function()
 
   after_each(function()
     _G.print = original_print
-    vim.env.OCEANUM_API_KEY = nil
+    vim.env.DATAMESH_TOKEN = nil
   end)
 
   it("check() with token present returns ok and API Token = ok", function()
-    vim.env.OCEANUM_API_KEY = "test-token"
+    vim.env.DATAMESH_TOKEN = "test-token"
     local result = health.check()
     assert.is_truthy(result and result.ok)
 
@@ -35,7 +35,7 @@ describe("Oceanum health module", function()
   end)
 
   it("check() without token returns not ok and API Token = warning", function()
-    vim.env.OCEANUM_API_KEY = nil
+    vim.env.DATAMESH_TOKEN = nil
     local result = health.check()
     assert.is_false(result.ok)
 
@@ -46,7 +46,7 @@ describe("Oceanum health module", function()
     assert.is_not_nil(tok)
     assert.equal("warning", tok.status)
     local msg = tok.message or ""
-    assert.match("OCEANUM_API_KEY", msg)
+    assert.match("DATAMESH_TOKEN", msg)
   end)
 
   it("check() includes Lua Version and Neovim checks and has at least 3 items", function()
@@ -65,7 +65,7 @@ describe("Oceanum health module", function()
   end)
 
   it("run() prints header (and at least one more line) and does not error", function()
-    vim.env.OCEANUM_API_KEY = "test-token"
+    vim.env.DATAMESH_TOKEN = "test-token"
     health.run()
     -- Expect at least one line printed, with a header line
     assert.is_true(#captured > 0)

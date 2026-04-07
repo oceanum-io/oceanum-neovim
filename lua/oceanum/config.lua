@@ -5,7 +5,7 @@ local M = {}
 
 --- Default configuration values
 local defaults = {
-  token_env_var = "OCEANUM_API_KEY",
+  token_env_var = "DATAMESH_TOKEN",
   ai_backend_url = "https://ai.oceanum.io",
   datamesh_ui_url = "https://ui.datamesh.oceanum.io",
 }

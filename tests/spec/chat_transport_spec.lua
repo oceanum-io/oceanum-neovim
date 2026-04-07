@@ -207,7 +207,7 @@ describe("send", function()
     
     assert.is_false(result.success)
     assert.matches("token not configured", result.error)
-    assert.matches("OCEANUM_API_KEY", result.error)
+    assert.matches("DATAMESH_TOKEN", result.error)
   end)
 
   it("calls callback with error when token not configured in async mode", function()

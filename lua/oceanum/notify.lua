@@ -3,12 +3,12 @@ local M = {}
 -- Centralized user-facing notifications for Oceanum Neovim plugin
 -- Each function issues a vim.notify with an appropriate level.
 function M.missing_token()
-  local msg = "Oceanum token not configured. Set the OCEANUM_API_KEY environment variable."
+  local msg = "Oceanum token not configured. Set the DATAMESH_TOKEN environment variable."
   vim.notify(msg, vim.log.levels.ERROR)
 end
 
 function M.invalid_token()
-  local msg = "Invalid or expired Oceanum token. Check OCEANUM_API_KEY."
+  local msg = "Invalid or expired Oceanum token. Check DATAMESH_TOKEN."
   vim.notify(msg, vim.log.levels.ERROR)
 end
 

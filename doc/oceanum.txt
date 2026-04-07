@@ -1,0 +1,135 @@
+*oceanum.txt*  Oceanum Neovim plugin documentation
+
+                                OCEANUM.NVIM~
+
+Oceanum Neovim is a plugin for interacting with Oceanum Datamesh and AI
+services directly from your editor. It provides a workspace browser for
+datasets and an AI chat interface for code generation.
+
+==============================================================================
+CONTENTS                                                    *oceanum-contents*
+
+    1. Requirements ................................ |oceanum-requirements|
+    2. Installation ................................ |oceanum-installation|
+    3. Configuration .............................. |oceanum-configuration|
+    4. Commands ........................................ |oceanum-commands|
+    5. Usage ............................................. |oceanum-usage|
+       5.1 Workspace Browser .................... |oceanum-usage-workspace|
+       5.2 AI Chat ................................... |oceanum-usage-chat|
+    6. Health Check .................................... |oceanum-health|
+    7. Troubleshooting ........................ |oceanum-troubleshooting|
+
+==============================================================================
+1. REQUIREMENTS                                         *oceanum-requirements*
+
+- Neovim >= 0.8.0
+- plenary.nvim (required for HTTP requests)
+- An Oceanum API token (see |oceanum-configuration|)
+
+==============================================================================
+2. INSTALLATION                                         *oceanum-installation*
+
+Using lazy.nvim:
+>
+    {
+      "oceanum-io/oceanum.nvim",
+      dependencies = { "nvim-lua/plenary.nvim" },
+      config = function()
+        require("oceanum").setup({
+          -- options go here
+        })
+      end,
+    }
+<
+
+==============================================================================
+3. CONFIGURATION                                       *oceanum-configuration*
+
+The plugin is configured by passing a table to the `setup` function.
+
+Options:
+
+*token_env_var*         (string)
+                        Environment variable name for the Oceanum API token.
+                        Default: "OCEANUM_API_KEY"
+
+*ai_backend_url*        (string)
+                        URL for the Oceanum AI service.
+                        Default: "https://ai.oceanum.io"
+
+*datamesh_ui_url*       (string)
+                        URL for the Oceanum Datamesh UI.
+                        Default: "https://ui.datamesh.oceanum.io"
+
+Example setup:
+>
+    require("oceanum").setup({
+      token_env_var = "MY_CUSTOM_TOKEN_VAR",
+    })
+<
+
+==============================================================================
+4. COMMANDS                                                 *oceanum-commands*
+
+:OceanumWorkspace       Open the floating workspace browser to explore your
+                        datasources.
+
+:OceanumChat            Open the floating AI chat window for code assistance.
+
+:OceanumBrowser         Open the Datamesh UI in your system's default browser.
+
+:OceanumInsert          Insert the Python connector code for the last selected
+                        datasource at the current cursor position.
+
+:OceanumHealth          Run a health check to verify your setup (token,
+                        dependencies, etc.).
+
+==============================================================================
+5. USAGE                                                       *oceanum-usage*
+
+5.1 WORKSPACE BROWSER                                *oceanum-usage-workspace*
+
+Run `:OceanumWorkspace` to open a floating window listing your available
+datasources.
+
+- Use `j`/`k` to navigate the list.
+- Press `<Enter>` on a datasource to generate Python connector code and insert
+  it into your current buffer.
+- Press `<Esc>` or `q` to close the window.
+
+5.2 AI CHAT                                               *oceanum-usage-chat*
+
+Run `:OceanumChat` to open a floating chat window. You can ask questions about
+data analysis or request code snippets.
+
+- Press `i` (in normal mode) within the chat window to insert the most recent
+  code block from the chat into your main buffer.
+- The chat context includes the contents of your current active buffer.
+
+==============================================================================
+6. HEALTH CHECK                                               *oceanum-health*
+
+Run `:OceanumHealth` to verify your installation. It checks for:
+- API token availability in your environment.
+- `plenary.nvim` installation.
+- Neovim and Lua version compatibility.
+
+==============================================================================
+7. TROUBLESHOOTING                                   *oceanum-troubleshooting*
+
+Missing Token:
+If you see "MISSING - set OCEANUM_API_KEY environment variable" in the health
+check, ensure you have exported your API key:
+`export OCEANUM_API_KEY=your_token_here`
+
+Empty Workspace:
+The workspace browser requires a valid token and access to datasources in your
+Oceanum account. If it appears empty, check your token and network connection.
+
+Network Errors:
+The plugin requires an internet connection to communicate with Oceanum API
+services. Ensure your firewall or proxy allows connections to the configured
+backend URLs.
+
+==============================================================================
+vim:tw=78:ts=8:ft=help:norl:

@@ -1,0 +1,95 @@
+local insert = require('oceanum.insert')
+local helpers = require('tests.helpers')
+
+describe('insert module', function()
+  describe('get_cursor_position', function()
+    it('returns cursor position', function()
+      local pos = insert.get_cursor_position()
+      assert.is_table(pos)
+      assert.is_number(pos.row)
+      assert.is_number(pos.col)
+    end)
+  end)
+
+  describe('has_editable_buffer', function()
+    it('returns true for normal buffer', function()
+      local buf = helpers.create_temp_buffer({'test line'})
+      vim.api.nvim_set_current_buf(buf)
+      local result = insert.has_editable_buffer()
+      assert.is_true(result)
+    end)
+  end)
+
+  describe('insert_code', function()
+    it('inserts code into buffer', function()
+      local buf = helpers.create_temp_buffer({'line 1', 'line 2'})
+      local win = vim.api.nvim_open_win(buf, true, {width=80, height=10, relative='editor', row=0, col=0})
+      vim.api.nvim_set_current_buf(buf)
+      vim.api.nvim_win_set_cursor(win, {1, 0})
+      
+      local result = insert.insert_code('print("hello")')
+      assert.is_true(result.success)
+      
+      local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
+      assert.equals('print("hello")', lines[1])
+      assert.equals('line 1', lines[2])
+      assert.equals('line 2', lines[3])
+    end)
+
+    it('appends newline after content', function()
+      local buf = helpers.create_temp_buffer({'existing'})
+      local win = vim.api.nvim_open_win(buf, true, {width=80, height=10, relative='editor', row=0, col=0})
+      vim.api.nvim_set_current_buf(buf)
+      vim.api.nvim_win_set_cursor(win, {1, 0})
+      
+      insert.insert_code('new content')
+      
+      local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
+      assert.equals('new content', lines[1])
+      assert.equals('existing', lines[2])
+    end)
+
+    it('handles empty content', function()
+      local buf = helpers.create_temp_buffer({'test'})
+      vim.api.nvim_set_current_buf(buf)
+      
+      local result = insert.insert_code('')
+      assert.is_false(result.success)
+      assert.equals('Empty content', result.error)
+    end)
+  end)
+
+  describe('insert_markdown', function()
+    it('inserts markdown into buffer', function()
+      local buf = helpers.create_temp_buffer({'start'})
+      local win = vim.api.nvim_open_win(buf, true, {width=80, height=10, relative='editor', row=0, col=0})
+      vim.api.nvim_set_current_buf(buf)
+      vim.api.nvim_win_set_cursor(win, {1, 0})
+      
+      local result = insert.insert_markdown('# Header')
+      assert.is_true(result.success)
+      
+      local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
+      assert.equals('# Header', lines[1])
+      assert.equals('start', lines[2])
+    end)
+  end)
+
+  describe('insert with no buffer fallback', function()
+    it('falls back to clipboard when no editable buffer', function()
+      vim.cmd('enew')
+      vim.api.nvim_buf_set_option(0, 'modifiable', false)
+      
+      local result = insert.insert('test content', 'code')
+      
+      assert.is_false(result.success)
+      assert.equals('No editable buffer', result.error)
+      assert.equals('clipboard', result.fallback)
+      
+      local clipboard_content = vim.fn.getreg('+')
+      assert.equals('test content', clipboard_content)
+      
+      vim.api.nvim_buf_set_option(0, 'modifiable', true)
+    end)
+  end)
+end)

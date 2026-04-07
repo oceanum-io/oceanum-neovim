@@ -1,0 +1,37 @@
+{
+  "id": "ws-12345",
+  "name": "My Oceanum Workspace",
+  "data": [
+    {
+      "id": "ds-001",
+      "label": "SST Dataset",
+      "datasource": "sst-global-daily",
+      "description": "Global daily sea surface temperature data",
+      "variables": ["sst", "sst_anomaly"],
+      "timefilter": {
+        "times": ["2020-01-01", "2023-12-31"]
+      },
+      "geofilter": {
+        "type": "BoundingBox",
+        "coordinates": [100, -60, 180, 0]
+      },
+      "spatialref": "EPSG:4326"
+    },
+    {
+      "id": "ds-002",
+      "label": "Ocean Color",
+      "datasource": "modis-oc",
+      "description": "MODIS ocean color chlorophyll-a measurements"
+    },
+    {
+      "id": "ds-003",
+      "label": "Argo Floats",
+      "datasource": "argo-profiles",
+      "description": "Argo float temperature and salinity profiles",
+      "variables": ["temperature", "salinity", "pressure"],
+      "timefilter": {
+        "times": ["2022-01-01", "2023-06-30"]
+      }
+    }
+  ]
+}

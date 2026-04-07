@@ -1,0 +1,7 @@
+.sisyphus/
+.vscode/
+.venv/
+node_modules/
+*.env
+*.local
+.DS_Store

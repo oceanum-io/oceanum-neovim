@@ -1,0 +1,5 @@
+{
+  "type": "markdown",
+  "content": "## SST Analysis Summary\n\n### Key Findings\n\n- **Warming Trend**: The western Pacific shows a consistent warming trend of ~0.5°C per year\n- **El Niño Impact**: Strongest warming coincided with El Niño events in 2020 and 2022-2023\n- **Data Coverage**: Analysis covers the period from January 2020 to December 2023\n\n### Methodology\n\n1. Loaded SST data from the Datamesh `sst-global-daily` datasource\n2. Filtered to western Pacific region (140°E-180°E, 10°S-10°N)\n3. Calculated monthly mean temperatures\n4. Applied linear regression to identify trends\n\n### Recommendations\n\n- Consider investigating the relationship with ENSO indices\n- Compare with climate model projections for the region",
+  "message": "Here's a summary of your SST analysis with key findings and methodology."
+}

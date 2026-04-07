@@ -1,0 +1,5 @@
+{
+  "type": "code",
+  "message": "Here's the Python code to analyze the SST warming trend:",
+  "code": "import oceanum.datamesh\nimport matplotlib.pyplot as plt\nimport pandas as pd\n\n# Connect to Datamesh\ndatamesh = oceanum.datamesh.Connector()\n\n# Load SST dataset\nsst = datamesh.load_datasource('sst-global-daily')\n\n# Query for the western Pacific region\nsst_wp = sst.query(\n    timefilter={'times': ['2020-01-01', '2023-12-31']},\n    geofilter={'type': 'BoundingBox', 'coordinates': [140, -10, 180, 10]}\n)\n\n# Calculate monthly means\nmonthly_mean = sst_wp.resample(time='M').mean()\n\n# Plot warming trend\nplt.figure(figsize=(10, 6))\nplt.plot(monthly_mean.time, monthly_mean.sst)\nplt.xlabel('Date')\nplt.ylabel('SST (°C)')\nplt.title('Western Pacific SST Warming Trend 2020-2023')\nplt.grid(True)\nplt.show()"
+}

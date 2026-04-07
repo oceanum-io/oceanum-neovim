@@ -21,7 +21,7 @@ Oceanum Neovim is a plugin for interacting with [Oceanum Datamesh](https://ui.da
 
 ```lua
 {
-  "oceanum-io/oceanum.nvim",
+  "oceanum-io/oceanum-neovim.nvim",
   dependencies = { "nvim-lua/plenary.nvim" },
   config = function()
     require("oceanum").setup({
